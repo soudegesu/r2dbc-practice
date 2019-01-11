@@ -1,20 +1,37 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: "2.1.1.RELEASE"
+    }
+}
+
 plugins {
+    id 'idea'
     id 'java'
 }
 
 repositories {
     mavenCentral()
+    maven { url 'http://repo.spring.io/plugins-release' }
+    maven { url "https://plugins.gradle.org/m2/" }
     maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
-    springVersion = '5.1.4.RELEASE'
+    springVersion = '2.1.1.RELEASE'
+    javaVersion = 1.8
 }
 
-dependencies {
-    // https://mvnrepository.com/artifact/org.springframework/spring-webflux
-    compile group: 'org.springframework', name: 'spring-webflux', version: springVersion
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
 
-    // https://mvnrepository.com/artifact/io.r2dbc/r2dbc-postgresql
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: springVersion
     compile group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '1.0.0.M6'
 }
