@@ -31,6 +31,10 @@ targetCompatibility = javaVersion
 
 apply plugin: 'org.springframework.boot'
 
+springBoot {
+    mainClassName = "com.soudegesu.example.webflux.Main"
+}
+
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: springVersion
     compile group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '1.0.0.M6'

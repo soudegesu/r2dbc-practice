@@ -1,11 +1,11 @@
 package com.soudegesu.example.webflux;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@SpringBootConfiguration
+@SpringBootApplication
 @EnableAutoConfiguration
 public class Main {
 
