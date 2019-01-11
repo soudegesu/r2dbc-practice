@@ -1,5 +1,6 @@
 package com.soudegesu.example.webflux;
 
+import com.soudegesu.example.webflux.handler.CustomerHandler;
 import com.soudegesu.example.webflux.handler.HelloHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +14,13 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 public class WebConfig extends DelegatingWebFluxConfiguration {
 
     @Bean
-    RouterFunction<ServerResponse> routes(HelloHandler handler) {
+    RouterFunction<ServerResponse> hello(HelloHandler handler) {
         return handler.routes();
     }
 
+
+    @Bean
+    RouterFunction<ServerResponse> customers(CustomerHandler handler) {
+        return handler.routes();
+    }
 }

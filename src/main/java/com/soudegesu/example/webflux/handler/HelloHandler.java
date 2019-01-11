@@ -16,6 +16,7 @@ public class HelloHandler {
 
     private Mono<ServerResponse> responseData(ServerRequest request) {
         Flux<String> flux = Flux.just("aaaaaaa");
+
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_STREAM_JSON)
                 .body(BodyInserters.fromPublisher(flux, String.class));
