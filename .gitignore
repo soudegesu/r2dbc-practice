@@ -15,6 +15,7 @@ gradle-app.setting
 
 .idea
 .vscode
+*.iml
 
 ## artifact directory
 out/
