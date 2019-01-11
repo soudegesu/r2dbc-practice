@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+ext {
+    springVersion = '5.1.4.RELEASE'
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.springframework/spring-webflux
+    compile group: 'org.springframework', name: 'spring-webflux', version: springVersion
+
+    // https://mvnrepository.com/artifact/io.r2dbc/r2dbc-postgresql
+    compile group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '1.0.0.M6'
+}
