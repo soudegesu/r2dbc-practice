@@ -1,6 +1,9 @@
 package com.soudegesu.example.webflux.handler;
 
+import com.soudegesu.example.webflux.repository.PostgresqlAsyncClient;
 import com.soudegesu.example.webflux.response.Customer;
+import io.r2dbc.client.R2dbc;
+import io.r2dbc.postgresql.PostgresqlResult;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyExtractors;
@@ -21,13 +24,6 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Component
 public class CustomerHandler {
 
-    private static final List<Customer> CUSTOMERS = Collections.unmodifiableList(
-            new ArrayList() {{
-                add(new Customer(1, "John"));
-                add(new Customer(2, "Mike"));
-                add(new Customer(3, "Ken"));
-            }});
-
     public RouterFunction<ServerResponse> routes() {
         return nest(path("/customers"),
                 route(GET("/"), this::getCustomers)
@@ -37,8 +33,24 @@ public class CustomerHandler {
     }
 
     private Mono<ServerResponse> getCustomers(ServerRequest request) {
-        return ServerResponse.ok()
+
+        R2dbc dbc = new PostgresqlAsyncClient().getConnection();
+        Flux<Customer> data = dbc.withHandle(handle ->
+                        handle.createQuery("SELECT id, name FROM customer;")
+                                .mapResult(
+                                        result ->
+                                                result.map((row, metadata) ->
+                                                        new Customer(
+                                                                row.get("id", Integer.class),
+                                                                row.get("name", String.class)
+                                                        )
+                                                )
+                                )
+                        );
+        return data
+                .then(ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(CUSTOMERS));
+                .body(BodyInserters.fromPublisher(data, Customer.class)));
+
     }
 }
