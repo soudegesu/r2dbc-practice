@@ -20,8 +20,10 @@ repositories {
 }
 
 ext {
-    springVersion = '2.1.1.RELEASE'
     javaVersion = 1.8
+
+    springVersion = '2.1.1.RELEASE'
+    r2dbcVersion = '1.0.0.M6'
 }
 
 sourceCompatibility = javaVersion
@@ -37,5 +39,6 @@ springBoot {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: springVersion
-    compile group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '1.0.0.M6'
+    compile group: 'io.r2dbc', name: 'r2dbc-postgresql', version: r2dbcVersion
+    compile group: 'io.r2dbc', name: 'r2dbc-client', version: r2dbcVersion
 }
