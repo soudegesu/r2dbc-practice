@@ -19,3 +19,4 @@ services:
     user: postgres
     volumes:
       - ./init:/docker-entrypoint-initdb.d
+      - ./conf:/etc/postgresql
