@@ -14,7 +14,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      LANG: ja_JP.utf8
     restart: always
     user: postgres
     volumes:
