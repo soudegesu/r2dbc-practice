@@ -1,4 +1,5 @@
-version: '2'
+version: '3'
+
 services:
   postgres:
     image: postgres
@@ -18,4 +19,3 @@ services:
     user: postgres
     volumes:
       - ./init:/docker-entrypoint-initdb.d
-      - ./conf:/etc/postgresql
